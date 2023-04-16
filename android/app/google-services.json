@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "800141713501",
+    "project_id": "traffic-cbe2a",
+    "storage_bucket": "traffic-cbe2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800141713501:android:d57280de3839719c0fedb4",
+        "android_client_info": {
+          "package_name": "com.testing.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800141713501-jcfkaujadgfo4i54pfg12d7pjldspl9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7_wOuxt8_mp5fWXS2virgWXtY-V8SngM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800141713501-jcfkaujadgfo4i54pfg12d7pjldspl9d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
