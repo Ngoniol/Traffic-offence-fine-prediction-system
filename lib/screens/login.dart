@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
                 height: 20,
               ),
               forgotPassword(),
-              loginButton(context, true, () {})
+              functionButton(context, "Login", () {})
             ],
           ),
         )

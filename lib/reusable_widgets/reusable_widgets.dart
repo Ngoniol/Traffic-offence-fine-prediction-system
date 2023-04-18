@@ -22,8 +22,8 @@ TextEditingController controller) {
   );
 }
 
-Container loginButton(
-  BuildContext context, bool isLogin, Function onTap) {
+Container functionButton(
+  BuildContext context, String buttonText, Function onTap) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.5,
       height: 50,
@@ -34,7 +34,7 @@ Container loginButton(
           onTap();
         },
         child: Text(
-          isLogin ? 'LOG IN' : 'Get Code',
+          buttonText,
           style: const TextStyle(
             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
           ),

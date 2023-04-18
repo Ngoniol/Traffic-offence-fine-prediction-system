@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
-import 'package:project/screens/change_pass.dart';
 import 'package:project/screens/login.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+class ChangePass extends StatefulWidget {
+  const ChangePass({Key? key}) : super(key: key);
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<ChangePass> createState() => _ChangePassState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
-  TextEditingController _emailTextController = TextEditingController();
+class _ChangePassState extends State<ChangePass> {
+  TextEditingController _passwordTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,22 +30,25 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       height: MediaQuery.of(context).size.height * 0.2,
                       width: MediaQuery.of(context).size.height * 0.2,
                     ),
-                    Text("Forgot Password", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    Text("Change Password", style: TextStyle(color: Colors.white, fontSize: 20),),
                     SizedBox(
                       height: 5,
                     ),
-                    login(),
                     SizedBox(
                       height: 20,
                     ),
-                    reusableTextField("Enter email", Icons.email_outlined, false, _emailTextController),
+                    reusableTextField("New password", Icons.lock_outline, true, _passwordTextController),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    reusableTextField("Confirm password", Icons.lock_outline, true, _passwordTextController),
                     SizedBox(
                       height: 10,
                     ),
-                    functionButton(context, "Get Code", () {
+                    functionButton(context, "Submit", () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ChangePass()));
-                    }),
+                          MaterialPageRoute(builder: (context) => Login()));
+                    })
                   ],
                 ),
               )
@@ -54,20 +56,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         )
     );
   }
-
-  Row login(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Login()));
-          },
-          child: const Text("Login",
-              style: TextStyle(color: Color.fromARGB(255, 4, 157, 228))),
-        )
-      ],
-    );
+  onTap(){
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Login()));
   }
 }
+
