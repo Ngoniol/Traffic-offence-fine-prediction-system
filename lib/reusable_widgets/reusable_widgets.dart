@@ -33,18 +33,18 @@ Container functionButton(
         onPressed: () {
           onTap();
         },
-        child: Text(
-          buttonText,
-          style: const TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-          ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith((states) {
               if (states.contains(MaterialState.pressed)) {
                 return Colors.black26;
               }
-              return Color.fromARGB(255, 97, 117, 158);
+              return const Color.fromARGB(255, 97, 117, 158);
             }),
+          ),
+        child: Text(
+          buttonText,
+          style: const TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
           )
     ),
   );

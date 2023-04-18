@@ -12,8 +12,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,11 +21,11 @@ class _LoginState extends State<Login> {
         child: Container(
           height: double.infinity,
           width: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
           color: Color(0xFF1D438C)
         ),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -33,18 +33,18 @@ class _LoginState extends State<Login> {
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: MediaQuery.of(context).size.height * 0.2,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               reusableTextField("Enter email", Icons.email_outlined, false, _emailTextController),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               reusableTextField("Enter password", Icons.lock_outline, true, _passwordTextController),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               forgotPassword(),
@@ -53,7 +53,7 @@ class _LoginState extends State<Login> {
                     email: _emailTextController.text,
                     password: _passwordTextController.text).then((value) {
                     Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                      MaterialPageRoute(builder: (context) => const HomeScreen()));
                 }).onError((error, stackTrace) {
                   print("Error ${error.toString()}");
                 });
@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ForgotPassword()));
+            MaterialPageRoute(builder: (context) => const ForgotPassword()));
           },
           child: const Text("Forgot password?",
         style: TextStyle(color: Color.fromARGB(255, 4, 157, 228))),

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
-import 'package:project/screens/change_pass.dart';
 import 'package:project/screens/login.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -12,7 +11,7 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +19,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           child: Container(
               height: double.infinity,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Color(0xFF1D438C)
               ),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -32,16 +31,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       height: MediaQuery.of(context).size.height * 0.2,
                       width: MediaQuery.of(context).size.height * 0.2,
                     ),
-                    Text("Reset Password", style: TextStyle(color: Colors.white, fontSize: 20),),
-                    SizedBox(
+                    const Text("Reset Password", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    const SizedBox(
                       height: 5,
                     ),
                     login(),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     reusableTextField("Enter email", Icons.email_outlined, false, _emailTextController),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     functionButton(context, "Reset Password", () {
@@ -65,7 +64,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Login()));
+                MaterialPageRoute(builder: (context) => const Login()));
           },
           child: const Text("Login",
               style: TextStyle(color: Color.fromARGB(255, 4, 157, 228))),
