@@ -34,7 +34,7 @@ Container loginButton(
           onTap();
         },
         child: Text(
-          isLogin ? 'LOG IN' : 'SIGN UP',
+          isLogin ? 'LOG IN' : 'Get Code',
           style: const TextStyle(
             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
           ),

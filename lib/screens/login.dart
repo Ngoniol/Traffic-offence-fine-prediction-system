@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
+import 'forgot_pass.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -41,12 +42,28 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 20,
               ),
+              forgotPassword(),
               loginButton(context, true, () {})
             ],
           ),
         )
         ),
         )
+    );
+  }
+  Row forgotPassword(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ForgotPassword()));
+          },
+          child: const Text("Forgot password?",
+        style: TextStyle(color: Color.fromARGB(255, 4, 157, 228))),
+        )
+      ],
     );
   }
 }
