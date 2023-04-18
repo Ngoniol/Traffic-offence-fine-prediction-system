@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
 import 'package:project/screens/change_pass.dart';
@@ -31,7 +32,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       height: MediaQuery.of(context).size.height * 0.2,
                       width: MediaQuery.of(context).size.height * 0.2,
                     ),
-                    Text("Forgot Password", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    Text("Reset Password", style: TextStyle(color: Colors.white, fontSize: 20),),
                     SizedBox(
                       height: 5,
                     ),
@@ -43,9 +44,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     SizedBox(
                       height: 10,
                     ),
-                    functionButton(context, "Get Code", () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ChangePass()));
+                    functionButton(context, "Reset Password", () {
+                      FirebaseAuth.instance.sendPasswordResetEmail(email: _emailTextController.text).then(
+                              (value) => Navigator.of(context).pop()).onError((error, stackTrace) {
+                                print("Error: ${error.toString()}");
+                      });
                     }),
                   ],
                 ),
