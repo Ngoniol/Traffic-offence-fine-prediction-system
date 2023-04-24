@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key, required this.title});
+  const SplashScreen({super.key});
 
-  final String title;
+  // final String title;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('../images/logo.png',
+              Image.asset('./images/logo.png',
                   height: MediaQuery.of(context).size.height * 0.2,
                   width: MediaQuery.of(context).size.height * 0.2,)
             ],
