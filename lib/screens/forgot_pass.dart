@@ -12,6 +12,8 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final TextEditingController _emailTextController = TextEditingController();
+  String _errorMessage = '';
+  bool _hasError = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +38,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       height: 5,
                     ),
                     login(),
+                    if (_hasError)
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        top: -10,
+                        child: Text(
+                          _errorMessage,
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -46,8 +58,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     functionButton(context, "Reset Password", () {
                       FirebaseAuth.instance.sendPasswordResetEmail(email: _emailTextController.text).then(
                               (value) => Navigator.of(context).pop()).onError((error, stackTrace) {
-                                print("Error: ${error.toString()}");
-                      });
+                                setState(() {
+                                  // Set the error message and error state
+                                  _errorMessage = error.toString().replaceAll(RegExp(r'\[.*\]\s*'), '');
+                                  _hasError = true;
+                                });
+                                });
                     }),
                   ],
                 ),

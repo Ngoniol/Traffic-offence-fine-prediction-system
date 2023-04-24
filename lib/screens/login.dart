@@ -14,6 +14,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
+  String _errorMessage = '';
+  bool _hasError = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +35,16 @@ class _LoginState extends State<Login> {
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: MediaQuery.of(context).size.height * 0.2,
               ),
+              if (_hasError)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: -10,
+                  child: Text(
+                    _errorMessage,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
               const SizedBox(
                 height: 5,
               ),
@@ -55,7 +67,11 @@ class _LoginState extends State<Login> {
                     Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const HomeScreen()));
                 }).onError((error, stackTrace) {
-                  print("Error ${error.toString()}");
+                  setState(() {
+                    // Set the error message and error state
+                    _errorMessage = error.toString().replaceAll(RegExp(r'\[.*\]\s*'), '');
+                    _hasError = true;
+                  });
                 });
               })
             ],
