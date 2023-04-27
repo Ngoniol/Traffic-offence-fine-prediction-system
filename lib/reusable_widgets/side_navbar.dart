@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:project/screens/edit_details.dart';
 import 'package:project/screens/home_page.dart';
 import 'package:project/screens/register_offence.dart';
+import '../functions/functions.dart';
+
+
 
 class SideNav extends StatelessWidget {
-  const SideNav({Key? key}) : super(key: key);
+   SideNav({Key? key}) : super(key: key);
 
+  final String? displayEmail = getUserDetails();
+
+
+  
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -13,8 +20,8 @@ class SideNav extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-              accountName: Text('Olga Ngoni'),
-              accountEmail: Text('ngoninamulunda@gmail.com'),
+              accountName: Text('Olga Ngoni Test'),
+              accountEmail: Text('$displayEmail'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.asset("./images/photo.jpg",
