@@ -55,7 +55,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     const SizedBox(
                       height: 10,
                     ),
-                    functionButton(context, "Reset Password", () {
+                    functionButton(context, "Reset Password", 0XFF61759E,() {
                       FirebaseAuth.instance.sendPasswordResetEmail(email: _emailTextController.text).then(
                               (value) => Navigator.of(context).pop()).onError((error, stackTrace) {
                                 setState(() {

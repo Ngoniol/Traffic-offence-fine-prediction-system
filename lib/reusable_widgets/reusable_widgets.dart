@@ -23,7 +23,7 @@ TextEditingController controller) {
 }
 
 Container functionButton(
-  BuildContext context, String buttonText, Function onTap) {
+  BuildContext context, String buttonText, int colors, Function onTap) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.5,
       height: 50,
@@ -38,7 +38,7 @@ Container functionButton(
               if (states.contains(MaterialState.pressed)) {
                 return Colors.black26;
               }
-              return const Color.fromARGB(255, 97, 117, 158);
+              return Color(colors);
             }),
           ),
         child: Text(
