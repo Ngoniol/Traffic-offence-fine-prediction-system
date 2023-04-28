@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/functions/read_data.dart';
 import 'package:project/screens/edit_details.dart';
 import 'package:project/screens/home_page.dart';
 import 'package:project/screens/register_offence.dart';
@@ -20,11 +21,11 @@ class SideNav extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-              accountName: Text('Olga Ngoni Test'),
+              accountName: Text('$fname $sname'),
               accountEmail: Text('$displayEmail'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Image.asset("./images/photo.jpg",
+                child: Image.network('$imageURL',
                   width: 90,
                   height: 90,
                   fit: BoxFit.cover,

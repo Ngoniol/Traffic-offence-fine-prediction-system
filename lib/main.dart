@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project/screens/login.dart';
 import 'package:project/screens/splashscreen.dart';
 
+//initializing firebase
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -34,6 +35,7 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      //if _isLoading is true splash screen else login page
       home: _isLoading ? const SplashScreen() : const Login(),
     );
   }

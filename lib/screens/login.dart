@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/functions/read_data.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
 import 'package:project/screens/home_page.dart';
 import 'forgot_pass.dart';
@@ -16,6 +17,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailTextController = TextEditingController();
   String _errorMessage = '';
   bool _hasError = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +66,7 @@ class _LoginState extends State<Login> {
                 FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: _emailTextController.text,
                     password: _passwordTextController.text).then((value) {
+                      getUserData(_emailTextController.text);
                     Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const HomeScreen()));
                 }).onError((error, stackTrace) {
