@@ -12,7 +12,7 @@ class Lists extends StatefulWidget {
 
 class _ListsState extends State<Lists> {
   late List<String> _list;
-  late String dropdownValue;
+  String? dropdownValue;
   late String texts;
 
   @override
@@ -24,8 +24,8 @@ class _ListsState extends State<Lists> {
 
   @override
   Widget build(BuildContext context) {
-    dropdownValue=_list.first;
     return DropdownButton<String>(
+      value: dropdownValue,
       hint: Text(texts),
       icon: const Icon(Icons.arrow_drop_down_outlined),
       onChanged: (String? value) {
@@ -33,7 +33,7 @@ class _ListsState extends State<Lists> {
         setState(() {
           dropdownValue = value!;
         });
-        widget.onItemSelected(dropdownValue);
+        widget.onItemSelected(dropdownValue!);
       },
       items: _list.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
