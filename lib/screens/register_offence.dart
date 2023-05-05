@@ -45,11 +45,20 @@ class _RegOffenceState extends State<RegOffence> {
               child:
               Column(
                   children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
                     TextFormField(
                       controller: _idTextController,
                       decoration: const InputDecoration(
                         hintText: 'ID number',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFBDBDBD), width: 0.3),
+                        ),
                       ),
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Lists(items: vehicleType, text: 'Type of vehicle',
                         onItemSelected: (value) {
@@ -60,13 +69,23 @@ class _RegOffenceState extends State<RegOffence> {
                     ),
                     TextFormField(controller: _modelTextController,
                       decoration: const InputDecoration(
-                          hintText: 'Model'
+                          hintText: 'Model',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFBDBDBD), width: 0.3),
+                        ),
                       ),
                     ),
                     TextFormField(controller: _numberPlateTextController,
                       decoration: const InputDecoration(
-                          hintText: 'Number plate'
+                          hintText: 'Number plate',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFBDBDBD), width: 0.3),
+                        ),
                       ),
+                    ),
+
+                    const SizedBox(
+                      height: 10,
                     ),
                     Lists(items: offences, text: 'Type of offence',
                         onItemSelected: (value) {

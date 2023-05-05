@@ -24,23 +24,28 @@ class _ListsState extends State<Lists> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      hint: Text(texts),
-      icon: const Icon(Icons.arrow_drop_down_outlined),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue = value!;
-        });
-        widget.onItemSelected(dropdownValue!);
-      },
-      items: _list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
+    return Container(
+          child: DropdownButton<String>(
+            isExpanded: true,
+            value: dropdownValue,
+            hint: Text(texts),
+            icon: const Icon(Icons.arrow_drop_down_outlined),
+            onChanged: (String? value) {
+              // This is called when the user selects an item.
+              setState(() {
+                dropdownValue = value!;
+              });
+              widget.onItemSelected(dropdownValue!);
+            },
+            items: _list.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value, overflow: TextOverflow.ellipsis,
+                  ),
+              );
+            }).toList(),
+          )
+
+      );
   }
 }
