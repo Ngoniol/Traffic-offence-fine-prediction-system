@@ -177,7 +177,9 @@ class _RegOffenceState extends State<RegOffence> {
                         ),
                       );
 
-                      sendEmail('olgangoni@students.uonbi.ac.ke');
+                      sendEmail('mercymutua014@gmail.com');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => const RegOffence()));
                     })
 
                   ]
