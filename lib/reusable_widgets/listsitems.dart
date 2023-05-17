@@ -32,7 +32,7 @@ List<String> vehicleType = [
 ];
 
 List<String> decisions = [
-  'Court',
+  'Notice to attend Court',
   'Fine on the spot',
 ];
 
@@ -70,4 +70,10 @@ List<String> roads = [
   'Outer Ring road',
   'Forest road',
   'Argwings Kodhek road',
+];
+
+List<String> courts = [
+  'Milimani law courts',
+  'Kibera courts',
+  'Makadara courts'
 ];
