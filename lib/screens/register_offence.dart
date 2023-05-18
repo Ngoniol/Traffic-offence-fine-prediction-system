@@ -10,7 +10,7 @@ import '../functions/send_email.dart';
 import '../reusable_widgets/app_bar.dart';
 import '../reusable_widgets/listsitems.dart';
 import '../reusable_widgets/side_navbar.dart';
-
+import '../functions/notification.dart';
 
 class RegOffence extends StatefulWidget {
   const RegOffence({Key? key}) : super(key: key);
@@ -28,9 +28,11 @@ class _RegOffenceState extends State<RegOffence> {
   String vehicle = '',
       offence = '',
       location = '',
-      mitigationConsidered = '',
       decision = '',
-      court = ''
+      court = '',
+      message = '',
+      offence_date='',
+      court_date=''
   ;
 
   CollectionReference _reference=FirebaseFirestore.instance.collection('offence');
@@ -67,7 +69,9 @@ class _RegOffenceState extends State<RegOffence> {
             pickedTime.hour,
             pickedTime.minute,
           );
-        });
+        }
+
+        );
       }
     }
   }
@@ -221,8 +225,8 @@ class _RegOffenceState extends State<RegOffence> {
                             icon: const Icon(Icons.camera_alt)),
                         if (capturedImage != null)
                           SizedBox(
-                            width: 100,
-                            height: 100,
+                            width: 50,
+                            height: 50,
                             child:capturedImage,
                           ),
                       ],
@@ -239,28 +243,55 @@ class _RegOffenceState extends State<RegOffence> {
                           numberPlate.isEmpty ||
                           offence.isEmpty ||
                           location.isEmpty ||
-                          mitigationConsidered.isEmpty ||
                           decision.isEmpty
                       ) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Please fill in all the required fields.'))
                         );
                       }
-                      //Create a map of data
-                      Map<String, String> dataToSend = {
-                        'idNumber': idNumber,
-                        'typeOfVehicle': vehicle,
-                        'model': model,
-                        'number plate': numberPlate,
-                        'offence': offence,
-                        'location': location,
-                        'mitigationConsidered': mitigationConsidered,
-                        'decision': decision,
-                        'imageURL' : imageUrl,
-                      };
+                      offence_date=DateTime.now().toString();
+                      court_date=selectedDateTime.toString();
 
-                      //add new document
-                      _reference.add(dataToSend);
+                      if (decision == 'Notice to attend Court'){
+                        //Create a map of data
+                        Map<String, String> dataToSend = {
+                          'idNumber': idNumber,
+                          'typeOfVehicle': vehicle,
+                          'model': model,
+                          'number plate': numberPlate,
+                          'offence': offence,
+                          'location': location,
+                          'offence_date':offence_date,
+                          'decision': decision,
+                          'court': court,
+                          'court_date':court_date,
+                          'imageURL' : imageUrl,
+                        };
+
+                        //add new document
+                        _reference.add(dataToSend);
+                        message = 'You are hereby required to attend $court on $court_date. You were charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
+                      }
+                      else if(decision == 'Fine on the spot'){
+                        //Create a map of data
+                        Map<String, String> dataToSend = {
+                          'idNumber': idNumber,
+                          'typeOfVehicle': vehicle,
+                          'model': model,
+                          'number plate': numberPlate,
+                          'offence': offence,
+                          'location': location,
+                          'offence_date':DateTime.now().toString(),
+                          'decision': decision,
+                          'imageURL' : imageUrl,
+                        };
+
+                        //add new document
+                        _reference.add(dataToSend);
+
+                      }
+
+
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -268,9 +299,11 @@ class _RegOffenceState extends State<RegOffence> {
                         ),
                       );
 
-                      sendEmail('mercymutua014@gmail.com');
+                      sendEmail('mercymutua014@gmail.com', message);
+                      sendNotification();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => const RegOffence()));
+
                     })
 
                   ]

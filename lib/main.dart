@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project/screens/login.dart';
@@ -5,6 +6,18 @@ import 'package:project/screens/splashscreen.dart';
 
 //initializing firebase
 void main() async {
+  AwesomeNotifications().initialize(
+      null,
+    [
+      NotificationChannel(
+          channelKey: 'channelKey',
+          channelName: 'channelName',
+          channelDescription: 'channelDescription',
+          importance: NotificationImportance.Max,
+      ),
+    ],
+    debug: true,
+  );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -22,6 +35,11 @@ class MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed){
+      if (!isAllowed){
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
     super.initState();
     // Delay the navigation to the login screen
     Future.delayed(const Duration(seconds: 2), () {
