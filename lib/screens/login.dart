@@ -13,6 +13,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  //initializing variables
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   String _errorMessage = '';
@@ -62,6 +63,8 @@ class _LoginState extends State<Login> {
                 height: 20,
               ),
               forgotPassword(),
+
+              //login function
               functionButton(context, "Login", 0XFF61759E,() {
                 FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: _emailTextController.text,

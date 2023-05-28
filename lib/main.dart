@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:project/screens/login.dart';
 import 'package:project/screens/splashscreen.dart';
 
-//initializing firebase
+//initializing notifications and firebase
 void main() async {
   AwesomeNotifications().initialize(
       null,
