@@ -26,9 +26,8 @@ class _RegOffenceState extends State<RegOffence> {
   final TextEditingController _modelTextController = TextEditingController();
   final TextEditingController _numberPlateTextController = TextEditingController();
   DateTime? selectedDateTime;
-  String? imageUrl;
+  String? imageUrl, offence, paymentMethod;
   Image? capturedImage;
-  String? offence;
   String idNumber = '',
       model = '',
       numberPlate = '',
@@ -114,6 +113,17 @@ class _RegOffenceState extends State<RegOffence> {
                                 });}
                           ),
                           SelectDate(onDateTimeSelected: onDateTimeSelected),
+                        ],
+                      ),
+                    if (decision == 'Fine on the spot')
+                      Column(
+                        children: [
+                          Lists(items: paymentMethods, text: 'Payment method',
+                              onItemSelected: (value) {
+                                setState(() {
+                                  paymentMethod = value;
+                                });
+                              })
                         ],
                       ),
                     CaptureEvidence(onCaptureEvidence: onCaptureEvidence),

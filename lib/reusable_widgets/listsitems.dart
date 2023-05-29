@@ -13,6 +13,12 @@ List<String> decisions = [
   'Fine on the spot',
 ];
 
+List<String> paymentMethods = [
+  'Cash',
+  'Mpesa',
+  'Mobile banking'
+];
+
 List<String> choice = [
   'Yes',
   'No',
