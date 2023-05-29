@@ -25,7 +25,10 @@ class _RegOffenceState extends State<RegOffence> {
   DateTime? selectedDateTime;
   String? imageUrl;
   Image? capturedImage;
-  String vehicle = '',
+  String idNumber = '',
+      model = '',
+      numberPlate = '',
+      vehicle = '',
       offence = '',
       location = '',
       decision = '',
@@ -105,9 +108,11 @@ class _RegOffenceState extends State<RegOffence> {
                       ),
                     CaptureEvidence(onCaptureEvidence: onCaptureEvidence),
                     functionButton(context, 'Submit', 0xFF1D438C, (){
-                      String idNumber = _idTextController.text,
-                          model = _modelTextController.text,
-                          numberPlate = _numberPlateTextController.text;
+                      idNumber = _idTextController.text;
+                      model = _modelTextController.text;
+                      numberPlate = _numberPlateTextController.text;
+                      offence_date=DateTime.now().toString();
+                      court_date=selectedDateTime.toString();
 
                       if(idNumber.isEmpty ||
                           vehicle.isEmpty ||
@@ -118,56 +123,55 @@ class _RegOffenceState extends State<RegOffence> {
                           decision.isEmpty
                       ) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Please fill in all the required fields.'))
+                            const SnackBar(content: Text('Please fill in all the required fields.'),backgroundColor: Colors.red,)
                         );
                       }
-                      offence_date=DateTime.now().toString();
-                      court_date=selectedDateTime.toString();
-
-                      if (decision == 'Notice to attend Court'){
-                        //Create a map of data
-                        Map<String, String> dataToSend = {
-                          'idNumber': idNumber,
-                          'typeOfVehicle': vehicle,
-                          'model': model,
-                          'number plate': numberPlate,
-                          'offence': offence,
-                          'location': location,
-                          'offence_date':offence_date,
-                          'decision': decision,
-                          'court': court,
-                          'court_date':court_date,
-                          if (imageUrl != null) 'imageURL': imageUrl!,
-                        };
-                        //add new document
-                        _reference.add(dataToSend);
-                        message = 'You are hereby required to attend $court on $court_date. You were charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
+                      else {
+                        if (decision == 'Notice to attend Court'){
+                          //Create a map of data
+                          Map<String, String> dataToSend = {
+                            'idNumber': idNumber,
+                            'typeOfVehicle': vehicle,
+                            'model': model,
+                            'number plate': numberPlate,
+                            'offence': offence,
+                            'location': location,
+                            'offence_date':offence_date,
+                            'decision': decision,
+                            'court': court,
+                            'court_date':court_date,
+                            if (imageUrl != null) 'imageURL': imageUrl!,
+                          };
+                          //add new document
+                          _reference.add(dataToSend);
+                          message = 'You are hereby required to attend $court on $court_date. You were charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
+                        }
+                        else if(decision == 'Fine on the spot'){
+                          //Create a map of data
+                          Map<String, String> dataToSend = {
+                            'idNumber': idNumber,
+                            'typeOfVehicle': vehicle,
+                            'model': model,
+                            'number plate': numberPlate,
+                            'offence': offence,
+                            'location': location,
+                            'offence_date':DateTime.now().toString(),
+                            'decision': decision,
+                            if (imageUrl != null) 'imageURL': imageUrl!,
+                          };
+                          //add new document
+                          _reference.add(dataToSend);
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Data has been saved.'),backgroundColor: Colors.lightGreen,
+                          ),
+                        );
+                        sendEmail('mercymutua014@gmail.com', message);
+                        sendNotification();
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => const RegOffence()));
                       }
-                      else if(decision == 'Fine on the spot'){
-                        //Create a map of data
-                        Map<String, String> dataToSend = {
-                          'idNumber': idNumber,
-                          'typeOfVehicle': vehicle,
-                          'model': model,
-                          'number plate': numberPlate,
-                          'offence': offence,
-                          'location': location,
-                          'offence_date':DateTime.now().toString(),
-                          'decision': decision,
-                          if (imageUrl != null) 'imageURL': imageUrl!,
-                        };
-                        //add new document
-                        _reference.add(dataToSend);
-                      }
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Data has been saved.'),
-                        ),
-                      );
-                      sendEmail('mercymutua014@gmail.com', message);
-                      sendNotification();
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const RegOffence()));
                     })
                   ]
               )
