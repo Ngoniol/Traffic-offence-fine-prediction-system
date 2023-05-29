@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:project/functions/capture_evidence.dart';
 import 'package:project/functions/get_driver.dart';
@@ -51,6 +52,10 @@ class _RegOffenceState extends State<RegOffence> {
       imageUrl = url;
     });
 
+  }
+  String _formatDateTime(DateTime dateTime) {
+    final DateFormat formatter = DateFormat('dd-MM-yyyy HH:mm');
+    return formatter.format(dateTime);
   }
   @override
   Widget build(BuildContext context) {
@@ -113,8 +118,9 @@ class _RegOffenceState extends State<RegOffence> {
                       idNumber = _idTextController.text;
                       model = _modelTextController.text;
                       numberPlate = _numberPlateTextController.text;
-                      offence_date=DateTime.now().toString();
-                      court_date=selectedDateTime.toString();
+                      offence_date=(_formatDateTime(DateTime.now()));
+                      court_date=(_formatDateTime(selectedDateTime!));
+
 
                       if(idNumber.isEmpty ||
                           vehicle.isEmpty ||

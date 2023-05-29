@@ -14,7 +14,7 @@ class _SelectDateState extends State<SelectDate> {
   DateTime? selectedDateTime;
 
   String _formatDateTime(DateTime dateTime) {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm');
+    final DateFormat formatter = DateFormat('dd-MM-yyyy HH:mm');
     return formatter.format(dateTime);
   }
   Future<void> selectDateTime() async {
