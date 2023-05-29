@@ -1,10 +1,7 @@
-import 'dart:io';
-import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project/functions/capture_evidence.dart';
 import 'package:project/functions/lists.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:project/functions/select_date.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
 import '../functions/send_email.dart';
@@ -22,11 +19,11 @@ class RegOffence extends StatefulWidget {
 
 class _RegOffenceState extends State<RegOffence> {
   //Initializing variables
-  DateTime? selectedDateTime;
   final TextEditingController _idTextController = TextEditingController();
   final TextEditingController _modelTextController = TextEditingController();
   final TextEditingController _numberPlateTextController = TextEditingController();
-  String imageUrl='';
+  DateTime? selectedDateTime;
+  String? imageUrl;
   Image? capturedImage;
   String vehicle = '',
       offence = '',
@@ -42,6 +39,11 @@ class _RegOffenceState extends State<RegOffence> {
   void onDateTimeSelected(DateTime? dateTime){
     setState(() {
       selectedDateTime = dateTime;
+    });
+  }
+  void onCaptureEvidence(String? url){
+    setState(() {
+      imageUrl = url;
     });
 
   }
@@ -98,61 +100,10 @@ class _RegOffenceState extends State<RegOffence> {
                                   court = value;
                                 });}
                           ),
-                          SelectDate(onDateTimeSelected: onDateTimeSelected,),
+                          SelectDate(onDateTimeSelected: onDateTimeSelected),
                         ],
                       ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton.icon(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.resolveWith((states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return Colors.black26;
-                                }
-                                return const Color(0xFF5d7fbe);
-                              }),
-                            ),
-                            label: const Text('Capture Evidence'),onPressed: () async {
-                          ImagePicker imagePicker = ImagePicker();
-                          XFile? file= await imagePicker.pickImage(source: ImageSource.camera);
-                          print('${file?.path}');
-
-                          if(file==null) return;
-
-                          String uniqueFileName=DateTime.now().millisecond.toString();
-
-                          //reference to storage root
-                          Reference referenceRoot=FirebaseStorage.instance.ref();
-                          Reference referenceDirImages=referenceRoot.child('evidence');
-
-                          //reference for the image being stored
-                          Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
-
-                          //Handle errors/success
-                          try{
-                            //store file
-                            await referenceImageToUpload.putFile(File(file!.path));
-
-                            //success:get download URL
-                            imageUrl = await referenceImageToUpload.getDownloadURL();
-                            setState(() {
-                              // Set the captured image
-                              capturedImage = Image.file(File(file!.path));
-                            });
-
-
-                          } catch(error) {}
-                        },
-                            icon: const Icon(Icons.camera_alt)),
-                        if (capturedImage != null)
-                          SizedBox(
-                            width: 50,
-                            height: 50,
-                            child:capturedImage,
-                          ),
-                      ],
-                    ),
-
+                    CaptureEvidence(onCaptureEvidence: onCaptureEvidence),
                     functionButton(context, 'Submit', 0xFF1D438C, (){
                       String idNumber = _idTextController.text,
                           model = _modelTextController.text,
@@ -186,7 +137,7 @@ class _RegOffenceState extends State<RegOffence> {
                           'decision': decision,
                           'court': court,
                           'court_date':court_date,
-                          'imageURL' : imageUrl,
+                          if (imageUrl != null) 'imageURL': imageUrl!,
                         };
                         //add new document
                         _reference.add(dataToSend);
@@ -203,7 +154,7 @@ class _RegOffenceState extends State<RegOffence> {
                           'location': location,
                           'offence_date':DateTime.now().toString(),
                           'decision': decision,
-                          'imageURL' : imageUrl,
+                          if (imageUrl != null) 'imageURL': imageUrl!,
                         };
                         //add new document
                         _reference.add(dataToSend);
