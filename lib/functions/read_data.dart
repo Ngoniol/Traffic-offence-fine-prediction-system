@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-//initializating variables
+//initializing variables
 String fname = '';
 String sname = '';
 String email = '';

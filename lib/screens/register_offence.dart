@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project/functions/capture_evidence.dart';
+import 'package:project/functions/get_driver.dart';
 import 'package:project/functions/lists.dart';
 import 'package:project/functions/select_date.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
@@ -108,7 +109,7 @@ class _RegOffenceState extends State<RegOffence> {
                         ],
                       ),
                     CaptureEvidence(onCaptureEvidence: onCaptureEvidence),
-                    functionButton(context, 'Submit', 0xFF1D438C, (){
+                    functionButton(context, 'Submit', 0xFF1D438C, () async {
                       idNumber = _idTextController.text;
                       model = _modelTextController.text;
                       numberPlate = _numberPlateTextController.text;
@@ -128,6 +129,7 @@ class _RegOffenceState extends State<RegOffence> {
                         );
                       }
                       else {
+                        await getDriver(idNumber);
                         courtMessage = 'You are hereby required to attend $court on $court_date. You were charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
                         fineMessage = 'You have been charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
                         if (decision == 'Notice to attend Court'){
@@ -148,7 +150,7 @@ class _RegOffenceState extends State<RegOffence> {
                           //add new document
                           _reference.add(dataToSend);
                           sendNotification(court);
-                          sendEmail('mercymutua014@gmail.com', courtMessage);
+                          sendEmail(driverEmail, courtMessage);
                         }
                         else if(decision == 'Fine on the spot'){
                           //Create a map of data
@@ -165,7 +167,7 @@ class _RegOffenceState extends State<RegOffence> {
                           };
                           //add new document
                           _reference.add(dataToSend);
-                          sendEmail('mercymutua014@gmail.com', fineMessage);
+                          sendEmail(driverEmail, fineMessage);
                         }
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
