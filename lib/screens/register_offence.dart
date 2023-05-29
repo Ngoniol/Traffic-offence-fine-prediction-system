@@ -144,6 +144,7 @@ class _RegOffenceState extends State<RegOffence> {
                           };
                           //add new document
                           _reference.add(dataToSend);
+                          sendNotification(court);
                           message = 'You are hereby required to attend $court on $court_date. You were charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
                         }
                         else if(decision == 'Fine on the spot'){
@@ -168,7 +169,6 @@ class _RegOffenceState extends State<RegOffence> {
                           ),
                         );
                         sendEmail('mercymutua014@gmail.com', message);
-                        sendNotification();
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => const RegOffence()));
                       }
