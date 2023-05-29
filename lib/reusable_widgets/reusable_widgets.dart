@@ -112,3 +112,15 @@ Container editButton(
     ),
   );
 }
+
+Widget inputTextField(TextEditingController controller, String hint){
+  return TextFormField(
+    controller: controller,
+    decoration: InputDecoration(
+      hintText: hint,
+      enabledBorder: const UnderlineInputBorder(
+        borderSide: BorderSide(color: Color(0xFFBDBDBD), width: 0.3),
+      ),
+    ),
+  );
+}

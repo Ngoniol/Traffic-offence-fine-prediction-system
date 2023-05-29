@@ -5,8 +5,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
     content: NotificationContent(
         id: 10,
         channelKey: 'channelKey',
-      title: 'Simple notification',
-      body: 'Simple button',
+      title: 'Traffic System',
+      body: 'You have successfully registered an offense',
     ),
   );
 }
