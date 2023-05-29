@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:project/functions/capture_evidence.dart';
 import 'package:project/functions/get_driver.dart';
+import 'package:project/functions/get_offence_details.dart';
 import 'package:project/functions/lists.dart';
 import 'package:project/functions/select_date.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
@@ -27,11 +28,11 @@ class _RegOffenceState extends State<RegOffence> {
   DateTime? selectedDateTime;
   String? imageUrl;
   Image? capturedImage;
+  String? offence;
   String idNumber = '',
       model = '',
       numberPlate = '',
       vehicle = '',
-      offence = '',
       location = '',
       decision = '',
       court = '',
@@ -84,11 +85,13 @@ class _RegOffenceState extends State<RegOffence> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Lists(items: offences, text: 'Type of offence',
+                    Lists(items: offenceTypes, text: 'Type of offence',
                         onItemSelected: (value) {
                           setState(() {
                             offence = value;
                           });}),
+                    if(offence != null)
+                      getOffenceDetails(selectedOffence: offence!),
                     Lists(items: roads, text: 'Location of offense',
                         onItemSelected: (value) {
                           setState(() {
@@ -126,7 +129,7 @@ class _RegOffenceState extends State<RegOffence> {
                           vehicle.isEmpty ||
                           model.isEmpty ||
                           numberPlate.isEmpty ||
-                          offence.isEmpty ||
+                          offence!.isEmpty ||
                           location.isEmpty ||
                           decision.isEmpty
                       ) {
@@ -145,7 +148,7 @@ class _RegOffenceState extends State<RegOffence> {
                             'typeOfVehicle': vehicle,
                             'model': model,
                             'number plate': numberPlate,
-                            'offence': offence,
+                            'offence': offence!,
                             'location': location,
                             'offence_date':offence_date,
                             'decision': decision,
@@ -165,7 +168,7 @@ class _RegOffenceState extends State<RegOffence> {
                             'typeOfVehicle': vehicle,
                             'model': model,
                             'number plate': numberPlate,
-                            'offence': offence,
+                            'offence': offence!,
                             'location': location,
                             'offence_date':DateTime.now().toString(),
                             'decision': decision,

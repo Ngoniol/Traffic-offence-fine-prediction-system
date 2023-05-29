@@ -1,29 +1,6 @@
-List<String> offences = [
-  'Obstruction',
-  'Overloading',
-  'Invalid driving license',
-  'Drunk driving',
-  'Over speeding',
-  'Defective vehicle',
-  'No vehicle identification plate',
-  'Racing',
-  'Failing to wear reflective jacket and helmet',
-  'Failing to wear uniform and badge',
-  'Expired driving license',
-  'Reckless driving',
-  'Invalid insurance',
-  'Driving on pavement',
-  'Driving without due care',
-  'Failing to obey',
-  'Improper parking',
-  'Riding in dangerous position',
-  'Causing damage to motor vehicle',
-  'Taking vehicle without consent',
-  'Carrying more than one in a bicycle',
-  'Non-payment of fare',
-  'Carrying more than one pillion riding',
+import 'package:project/functions/offences.dart';
 
-];
+List<String> offenceTypes = offences.map((offence) => offence.offenceType).toList();
 
 List<String> vehicleType = [
   'Personal car',
