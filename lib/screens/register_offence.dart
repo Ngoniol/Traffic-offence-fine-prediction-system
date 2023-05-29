@@ -33,7 +33,8 @@ class _RegOffenceState extends State<RegOffence> {
       location = '',
       decision = '',
       court = '',
-      message = '',
+      courtMessage = '',
+      fineMessage = '',
       offence_date='',
       court_date=''
   ;
@@ -127,6 +128,8 @@ class _RegOffenceState extends State<RegOffence> {
                         );
                       }
                       else {
+                        courtMessage = 'You are hereby required to attend $court on $court_date. You were charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
+                        fineMessage = 'You have been charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
                         if (decision == 'Notice to attend Court'){
                           //Create a map of data
                           Map<String, String> dataToSend = {
@@ -145,7 +148,7 @@ class _RegOffenceState extends State<RegOffence> {
                           //add new document
                           _reference.add(dataToSend);
                           sendNotification(court);
-                          message = 'You are hereby required to attend $court on $court_date. You were charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
+                          sendEmail('mercymutua014@gmail.com', courtMessage);
                         }
                         else if(decision == 'Fine on the spot'){
                           //Create a map of data
@@ -162,13 +165,13 @@ class _RegOffenceState extends State<RegOffence> {
                           };
                           //add new document
                           _reference.add(dataToSend);
+                          sendEmail('mercymutua014@gmail.com', fineMessage);
                         }
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Data has been saved.'),backgroundColor: Colors.lightGreen,
                           ),
                         );
-                        sendEmail('mercymutua014@gmail.com', message);
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => const RegOffence()));
                       }

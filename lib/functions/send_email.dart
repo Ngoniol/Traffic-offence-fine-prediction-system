@@ -1,6 +1,5 @@
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
-import '../screens/register_offence.dart';
 
 Future<void> sendEmail(String recipientEmail, String body) async {
 
