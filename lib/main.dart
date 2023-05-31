@@ -1,11 +1,16 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:project/reusable_widgets/keys.dart';
 import 'package:project/screens/login.dart';
 import 'package:project/screens/splashscreen.dart';
+import 'package:mpesa_flutter_plugin/mpesa_flutter_plugin.dart';
 
 //initializing notifications and firebase
 void main() async {
+  await MpesaFlutterPlugin.setConsumerKey(consumerKey);
+  await MpesaFlutterPlugin.setConsumerSecret(consumerSecret);
+
   AwesomeNotifications().initialize(
       null,
     [
@@ -19,7 +24,8 @@ void main() async {
     debug: true,
   );
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+  );
   runApp(const MyApp());
 }
 

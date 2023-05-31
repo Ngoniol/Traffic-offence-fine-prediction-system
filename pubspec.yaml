@@ -39,6 +39,7 @@ dependencies:
   mailer:
   searchfield: ^0.8.1
   awesome_notifications: ^0.7.4+1
+  mpesa_flutter_plugin: ^1.6.1
 
 
 

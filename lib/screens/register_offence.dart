@@ -5,6 +5,7 @@ import 'package:project/functions/capture_evidence.dart';
 import 'package:project/functions/get_driver.dart';
 import 'package:project/functions/get_offence_details.dart';
 import 'package:project/functions/lists.dart';
+import 'package:project/functions/mpesa_payment.dart';
 import 'package:project/functions/select_date.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
 import '../functions/send_email.dart';
@@ -132,8 +133,6 @@ class _RegOffenceState extends State<RegOffence> {
                       model = _modelTextController.text;
                       numberPlate = _numberPlateTextController.text;
                       offence_date=(_formatDateTime(DateTime.now()));
-                      court_date=(_formatDateTime(selectedDateTime!));
-
 
                       if(idNumber.isEmpty ||
                           vehicle.isEmpty ||
@@ -152,6 +151,7 @@ class _RegOffenceState extends State<RegOffence> {
                         courtMessage = 'You are hereby required to attend $court on $court_date. You were charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
                         fineMessage = 'You have been charged with $offence which is contrary to Section of the Kenya Traffic Act which was committed at $location on $offence_date';
                         if (decision == 'Notice to attend Court'){
+                          court_date=(_formatDateTime(selectedDateTime!));
                           //Create a map of data
                           Map<String, String> dataToSend = {
                             'idNumber': idNumber,
@@ -187,6 +187,7 @@ class _RegOffenceState extends State<RegOffence> {
                           //add new document
                           _reference.add(dataToSend);
                           sendEmail(driverEmail, fineMessage);
+                          await mpesaPayment(driverPhoneNumber);
                         }
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
