@@ -15,7 +15,7 @@ class SideNav extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-              accountName: Text('$fname $sname'),
+              accountName: Text('$firstName $surname'),
               accountEmail: Text(email),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/admin/home_page.dart';
 import 'package:project/functions/read_data.dart';
 import 'package:project/reusable_widgets/reusable_widgets.dart';
 import 'package:project/screens/home_page.dart';
@@ -70,8 +71,8 @@ class _LoginState extends State<Login> {
                     email: _emailTextController.text,
                     password: _passwordTextController.text).then((value) {
                       getUserData(_emailTextController.text);
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()));
+                      Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => const AdminHome()));
                 }).onError((error, stackTrace) {
                   setState(() {
                     // Set the error message and error state

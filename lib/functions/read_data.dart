@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 //initializing variables
-String fname = '';
-String sname = '';
+String firstName = '';
+String surname = '';
 String email = '';
 String phoneNumber = '';
-String badgeno = '';
+String badgeNumber = '';
 String imageURL = '';
+String userRole = '';
 
 Future<void> getUserData(String userEmail) async {
   final querySnapshot = await FirebaseFirestore.instance
-      .collection('officer')
+      .collection('users')
       .where('email', isEqualTo: userEmail)
       .limit(1)
       .get();
@@ -18,11 +19,12 @@ Future<void> getUserData(String userEmail) async {
   if (querySnapshot.docs.isNotEmpty) {
     final documentSnapshot = querySnapshot.docs.first;
     final data = documentSnapshot.data();
-    fname = data['fname'] ?? '';
-    sname = data['sname'] ?? '';
+    firstName = data['firstName'] ?? '';
+    surname = data['surname'] ?? '';
     email = data['email'] ?? '';
     phoneNumber = data['phoneNumber'] ?? '';
-    badgeno = data['badgeno'] ?? '';
+    userRole = data['userRole'] ?? '';
+    badgeNumber = data['badgeNumber'] ?? '';
     imageURL = data['imageURL'] ?? '';
   } else {
     print('Document does not exist!');

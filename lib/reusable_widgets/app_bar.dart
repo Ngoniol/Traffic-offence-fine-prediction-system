@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/functions/reset_values.dart';
 import '../screens/login.dart';
 import '../screens/notifications.dart';
 
@@ -27,9 +28,10 @@ class App extends StatelessWidget implements PreferredSizeWidget {
         ),
         IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () {
+            onPressed: () async {
               Navigator.popUntil(context, (route) => false);
-              FirebaseAuth.instance.signOut().then((value) {
+              await FirebaseAuth.instance.signOut().then((value) {
+                resetValues();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Login())
                 );
